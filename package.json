@@ -1,0 +1,14 @@
+{
+    "scripts": {
+        "docs:dev": "tsx scripts/generate-sidebar.ts && vitepress dev",
+        "docs:build": "tsx scripts/generate-sidebar.ts && vitepress build",
+        "docs:preview": "vitepress preview"
+    },
+    "devDependencies": {
+        "@types/node": "^22.15.17",
+        "vitepress": "^1.6.3"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    }
+}

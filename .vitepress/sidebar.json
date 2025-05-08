@@ -1,0 +1,46 @@
+[
+  {
+    "text": "Guide",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "Introduction",
+        "link": "/guide"
+      }
+    ]
+  },
+  {
+    "text": "Introduction",
+    "link": "/"
+  },
+  {
+    "text": "Introduction",
+    "link": "/introduction"
+  },
+  {
+    "text": "Reference",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "Introduction",
+        "link": "/reference"
+      },
+      {
+        "text": "Ls",
+        "link": "/reference/ls"
+      }
+    ]
+  },
+  {
+    "text": "Tutorial1",
+    "link": "/tutorial1"
+  },
+  {
+    "text": "Tutorial2",
+    "link": "/tutorial2"
+  },
+  {
+    "text": "Usage examples",
+    "link": "/usage-examples"
+  }
+]
