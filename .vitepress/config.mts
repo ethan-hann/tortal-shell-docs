@@ -15,7 +15,7 @@ export default defineConfig({
   // Use path.resolve for accurate directory resolution
   srcDir: path.resolve(__dirname, '../src'),
   sitemap: { hostname: 'https://tortal.tech/tortal-shell-docs' },
-  base: '/',
+  base: '/tortal-shell-docs/',
   cleanUrls: true,
   lastUpdated: true,
   themeConfig: {
