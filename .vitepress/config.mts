@@ -24,7 +24,7 @@ export default defineConfig({
     ],
     sidebar: sidebarJson as DefaultTheme.Sidebar,
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ethan-hann/ethan-hann.github.io' }
+      { icon: 'github', link: 'https://github.com/ethan-hann/tortal-shell-docs' }
     ],
     search: {
       provider: 'local'

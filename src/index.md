@@ -44,9 +44,9 @@ run greet.sh
 
 ## Documentation Sections
 
-- **[Getting Started](.\getting-started.md)** – First steps with the shell
-- **[Commands](commands\index.md)** – List and usage of built-in commands
-- **[Scripting](scripting\index.md)** – Guide to writing and running shell scripts
-- **[Advanced](advanced\tips-and-tricks.md)** – Tips, limitations, and deeper insights
+- **[Getting Started](getting-started.md)** – First steps with the shell
+- **[Commands](commands)** – List and usage of built-in commands
+- **[Scripting](scripting)** – Guide to writing and running shell scripts
+- **[Advanced](advanced/tips-and-tricks.md)** – Tips, limitations, and deeper insights
 
 Use the sidebar or links above to begin exploring.
