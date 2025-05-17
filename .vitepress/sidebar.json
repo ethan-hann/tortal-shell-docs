@@ -1,46 +1,80 @@
 [
   {
-    "text": "Guide",
+    "text": "Advanced",
     "collapsed": false,
     "items": [
       {
-        "text": "Introduction",
-        "link": "/guide"
+        "text": "Limitations",
+        "link": "/advanced/limitations"
+      },
+      {
+        "text": "Tips and tricks",
+        "link": "/advanced/tips-and-tricks"
       }
     ]
+  },
+  {
+    "text": "Commands",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "File commands",
+        "link": "/commands/file-commands"
+      },
+      {
+        "text": "Network commands",
+        "link": "/commands/network-commands"
+      },
+      {
+        "text": "Shell builtins",
+        "link": "/commands/shell-builtins"
+      },
+      {
+        "text": "Utility commands",
+        "link": "/commands/utility-commands"
+      },
+      {
+        "text": "Visual commands",
+        "link": "/commands/visual-commands"
+      }
+    ]
+  },
+  {
+    "text": "Getting started",
+    "link": "/getting-started"
   },
   {
     "text": "Introduction",
     "link": "/"
   },
   {
-    "text": "Introduction",
-    "link": "/introduction"
-  },
-  {
-    "text": "Reference",
+    "text": "Scripting",
     "collapsed": false,
     "items": [
       {
-        "text": "Introduction",
-        "link": "/reference"
+        "text": "Command substitution",
+        "link": "/scripting/command-substitution"
       },
       {
-        "text": "Ls",
-        "link": "/reference/ls"
+        "text": "Control flow",
+        "link": "/scripting/control-flow"
+      },
+      {
+        "text": "Examples",
+        "link": "/scripting/examples"
+      },
+      {
+        "text": "Functions",
+        "link": "/scripting/functions"
+      },
+      {
+        "text": "Pipes and chains",
+        "link": "/scripting/pipes-and-chains"
+      },
+      {
+        "text": "Variables",
+        "link": "/scripting/variables"
       }
     ]
-  },
-  {
-    "text": "Tutorial1",
-    "link": "/tutorial1"
-  },
-  {
-    "text": "Tutorial2",
-    "link": "/tutorial2"
-  },
-  {
-    "text": "Usage examples",
-    "link": "/usage-examples"
   }
 ]

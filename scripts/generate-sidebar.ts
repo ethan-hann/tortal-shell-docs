@@ -1,70 +1,77 @@
-import fs from 'fs'
-import path from 'path'
+// scripts/generate-sidebar.ts
+import fs from 'fs';
+import path from 'path';
 
 type SidebarEntry =
   | { text: string; link: string }
-  | { text: string; collapsed: boolean; items: SidebarEntry[] }
+  | { text: string; collapsed: boolean; items: SidebarEntry[] };
 
 function generateSidebar(dir: string, baseDir: string = dir): SidebarEntry[] {
-  const result: SidebarEntry[] = []
+  const result: SidebarEntry[] = [];
 
   for (const file of fs.readdirSync(dir, { withFileTypes: true })) {
-    // Skip hidden files
-    if (file.name.startsWith('.')) continue
+    if (file.name.startsWith('.')) continue;
 
-    const absolutePath = path.join(dir, file.name)
-    const relativePath = path.relative(baseDir, absolutePath)
-    const routePath = relativePath.replace(/\\/g, '/').replace(/\.md$/, '')
+    const absolutePath = path.join(dir, file.name);
+    const relativePath = path.relative(baseDir, absolutePath);
+    const routePath = relativePath.replace(/\\/g, '/').replace(/\.md$/, '');
 
     if (file.isDirectory()) {
-      // Process directory
-      const children = generateSidebar(absolutePath, baseDir)
-      if (children.length === 0) continue
+      const children = generateSidebar(absolutePath, baseDir);
+      if (children.length === 0) continue;
+
+      // Detect and extract index.md for the group intro
+      const indexPath = '/' + path.join(path.relative(baseDir, absolutePath)).replace(/\\/g, '/');
+      const indexEntry = children.find(
+        (child) => typeof child === 'object' && 'link' in child && child.link === indexPath
+      );
+      const items = children.filter(
+        (child) => !(typeof child === 'object' && 'link' in child && child.link === indexPath)
+      );
+
+      if (indexEntry && 'link' in indexEntry) {
+        items.unshift({ text: 'Introduction', link: indexEntry.link });
+      }
 
       result.push({
         text: file.name.charAt(0).toUpperCase() + file.name.slice(1).replace(/[-_]/g, ' '),
         collapsed: false,
-        items: children
-      })
+        items
+      });
     } else if (file.name.endsWith('.md')) {
-      // Process markdown file
-      const name = file.name.replace(/\.md$/, '')
+      const name = file.name.replace(/\.md$/, '');
+      let link = '';
 
-      // Special handling for index/README files
-      let link = ''
       if (name === 'index' || name === 'README') {
-        // For root index, use '/'
         if (dir === baseDir) {
-          link = '/'
+          link = '/';
+          result.push({ text: 'Introduction', link });
         } else {
-          // For nested index, point to the directory
-          link = '/' + path.dirname(routePath)
+          // Will be added as group intro item later
+          result.push({ text: '__group_index__', link: '/' + path.dirname(routePath) });
         }
       } else {
-        link = '/' + routePath
+        link = '/' + routePath;
+        result.push({
+          text: name.charAt(0).toUpperCase() + name.slice(1).replace(/[-_]/g, ' '),
+          link
+        });
       }
-
-      result.push({
-        text: name === 'index' || name === 'README'
-          ? 'Introduction'
-          : name.charAt(0).toUpperCase() + name.slice(1).replace(/[-_]/g, ' '),
-        link: link
-      })
     }
   }
 
-  return result
+  // Remove internal placeholder items
+  return result.filter((entry) => !(typeof entry === 'object' && entry.text === '__group_index__'));
 }
 
-// Fix: Use absolute paths by resolving from script location
+// Paths
 const scriptDir = __dirname || path.dirname(new URL(import.meta.url).pathname);
 const projectRoot = path.resolve(scriptDir, '..');
 const docsDir = path.resolve(projectRoot, 'src');
 const outputPath = path.resolve(projectRoot, '.vitepress/sidebar.json');
 
-console.log(`Scanning directory: ${docsDir}`);
-
-// Generate sidebar and save to JSON file
-export const sidebar = generateSidebar(docsDir);
+// Run
+console.log(`📁 Scanning docs: ${docsDir}`);
+const sidebar = generateSidebar(docsDir);
 fs.writeFileSync(outputPath, JSON.stringify(sidebar, null, 2));
-console.log(`Sidebar JSON generated at ${outputPath}`);
+console.log(`✅ Sidebar written to ${outputPath}`);

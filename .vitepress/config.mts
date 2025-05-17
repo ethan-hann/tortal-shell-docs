@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
-// Fix the import path - use ./sidebar.json instead of ../vitepress/sidebar.json
 import sidebarJson from './sidebar.json' 
 import path from 'path'
 
