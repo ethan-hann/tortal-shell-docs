@@ -20,7 +20,10 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/usage-examples' }
+      { text: 'Getting Started', link: '/getting-started' },
+      { text: 'Scripting', link: '/scripting' },
+      { text: 'Commands', link: '/commands' },
+      { text: 'Advanced', link: '/advanced' },
     ],
     sidebar: sidebarJson as DefaultTheme.Sidebar,
     socialLinks: [

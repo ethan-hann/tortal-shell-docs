@@ -10,7 +10,7 @@ CURRENT=`pwd`
 Also supported:
 
 ```sh
-FILES=$(ls | wc -l)
+FILES=$(ls | wc -ws) # count the number of files in a directory
 ```
 
 All output is collapsed into a single line.

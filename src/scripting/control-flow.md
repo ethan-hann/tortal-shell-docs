@@ -45,3 +45,53 @@ for outer in A B; do
   done
 done
 ```
+
+### While loop
+
+```sh
+count=0
+while [ $count -eq 0 ]; do
+  echo "Count is $count"
+done
+```
+> ⚠️ Equivalent to a `while(true)` loop, i.e. infinite loop
+
+#### While loop with increment
+
+```sh
+count=0
+while [ $count -lt 5 ]; do
+  echo "Count is $count"
+  count++
+done
+```
+
+#### While loop with conditional and break
+
+```sh
+count=0
+while [ $count -lt 5 ]; do
+  if [ $count -eq 3 ]; then
+    echo "Breaking at count $count"
+    break
+  fi
+  echo "Count is $count"
+  count=$((count + 1))
+done
+```
+
+#### While loop with conditional and continue
+
+```sh
+count=0
+while [ $count -lt 5 ]; do
+  count=$((count + 1))
+  if [ $count -eq 3 ]; then
+    echo "Skipping count $count"
+    continue
+  fi
+  echo "Count is $count"
+done
+```
+
+> `break`, `continue`, and conditionals also work inside `for` loops.

@@ -12,6 +12,15 @@ COUNT=$(ls | wc -l)
 echo "There are $COUNT files"
 ```
 
+You can also evaluate mathmatical expressions and save them to a variable. In this case, note the syntax is `$((expression))`:
+
+```sh
+COUNT=$((5 + 2 * 3))
+echo $COUNT
+```
+
+*Output*: `11`
+
 ## Chaining and Conditional Execution
 
 Use `&&` to run the next command only if the previous succeeded:
