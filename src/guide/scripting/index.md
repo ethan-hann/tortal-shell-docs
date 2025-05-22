@@ -24,8 +24,6 @@ echo $count
 
 And yes, math works. No abacus required.
 
----
-
 ## Control Structures
 
 ### If Statements
@@ -62,8 +60,6 @@ fi
 
 * Use `-gt`, `-lt`, `-le`, `-ge`, `-eq`, `-ne` for numeric comparisons.
 
----
-
 ### While Loops
 
 ```sh
@@ -77,16 +73,18 @@ done
 * Executes block repeatedly while condition is true.
 * Maximum iteration limit (10,000) prevents your browser from melting into goo.
 
-#### Infinite Loop Warning
-
-```sh
+::: danger Beware of Infinite Loops
+```sh{4}
 count=0
 while [ $count -eq 0 ]; do
   echo "Count is $count"
+  # no increment here
 done
 ```
 
-* This is effectively an infinite loop. You’ve been warned.
+* This is effectively an infinite loop.
+* Make sure to always increment/decrement the counter variable within the `while` loop depending on the condition! You’ve been warned.
+:::
 
 #### While Loop with Increment
 
@@ -98,7 +96,7 @@ while [ $count -lt 5 ]; do
 done
 ```
 
-* Post-increment works. You're welcome.
+* Post-increment also works. You're welcome.
 
 #### While Loop with `break`
 
@@ -132,7 +130,6 @@ done
 
 * `continue` skips the rest of the current iteration. Good for avoiding number 3, which we all agree is cursed.
 
----
 
 ### For Loops
 
@@ -206,11 +203,9 @@ esac
 * `;;` ends each match case.
 * `*` is the default case. Think of it like the wildcard that always wins.
 
----
-
 ## Functions
 
-Ah yes, functions — the Swiss army knife of shell scripting. They're where logic goes to modularize, variables go to scope out the place, and recursion goes to party until the stack collapses (which, here, it won’t — we have safeguards!).
+Functions — the Swiss army knife of shell scripting. They're where logic goes to modularize, variables go to scope out the place, and recursion goes to party until the stack collapses (which, here, hopefull it won’t — we have safeguards!).
 
 ### Defining a Function
 
@@ -329,8 +324,6 @@ fibonacci 7
 
 Functions are powerful. And like all powerful things, they come with great responsibility. Or at least some parentheses.
 
----
-
 ## Command Substitution
 
 Command substitution is like teleportation for strings — the output of one command magically appears inside another. It's the "yo dawg, I heard you like commands" of the shell.
@@ -396,8 +389,6 @@ Careful though — too much nesting and you may summon a sub-shell demon.
 
 Output from command substitution is automatically flattened to a single line — newlines are replaced with spaces.
 
----
-
 ## Chaining and Piping
 
 Chaining and piping are the secret sauce of shell scripting. Want to feed output from one command into another? Pipe it. Want to run something only if the previous command didn’t explode? Chain it.
@@ -442,8 +433,6 @@ cat hello.txt | grep "world" && echo "Found it" || echo "Nope"
 
 It’s like a choose-your-own-adventure story, but with more brackets.
 
----
-
 ## Tips and Tricks
 
 Here are some helpful tips to get the most out of your browser shell.
@@ -456,7 +445,11 @@ COUNT=$(ls | count)
 echo "There are $COUNT files"
 ```
 
-### Arithmetic Evaluation
+> [Why `count` and not `wc`?](#count-things-reliably)
+
+#### Arithmetic Evaluation
+
+You can also evaluate mathmatical expressions and save them to a variable. In this case, note the syntax is `$((expression))`:
 
 ```sh
 COUNT=$((5 + 2 * 3))
@@ -464,6 +457,8 @@ echo $COUNT
 ```
 
 **Output:** `11`
+
+> *Yes, we follow the order of operations, [PEMDAS](https://www.mathsisfun.com/operation-order-pemdas.html) lovers*
 
 ### Chaining and Conditional Execution
 
@@ -504,4 +499,53 @@ Now `$FAVORITE` will be available in future scripts and sessions.
 ls | count
 ```
 
-Because `wc` lies, and `count` tells the truth.
+Use `count` instead of `wc` when counting files or piped items, because `count` is specifically designed to handle browser shell quirks like inconsistent whitespace or multi-column output — especially from commands like `ls`. Because `wc` lies, and `count` tells the truth.
+
+## Limitations
+
+While the shell is feature-rich, there are still some limits (besides your imagination).
+
+### ❌ No True Concurrency
+
+All scripts run in a single-threaded context. There’s no `&` backgrounding or async tasks. Everything happens in order, like polite British queuing, so write your scripts responsibly.
+
+### ❌ No Native Binaries
+
+Come on, this is a browser. You can’t run native system binaries or spawn actual processes.
+
+```sh
+# Nope
+make
+python3 script.py
+```
+
+All commands must be built-ins — lovingly handcrafted in TypeScript.
+
+### 🗂 Virtual Files Only
+
+There’s a full virtual file system, but it’s sandboxed. You can’t access local files unless they’ve been uploaded or created in-shell. Think of it like an invisible flash drive in your browser.
+
+### 🔐 No Direct Network Access (outside of built-in commands)
+
+You can use `ping`, `nslookup`, or `curl`, but the magic stops there. No raw `fetch()` or network sockets. The browser has opinions, and security is one of them.
+
+### 🛠 Limited Bash Syntax
+
+We’re not Bash — we just cosplay as it.
+
+Unsupported:
+- No `[[ ... ]]` conditionals
+- No heredocs (`<<EOF`)
+- No `select`, `until`
+
+But! We do support:
+- ✅ `if`, `else`, `elif`, `fi`
+- ✅ `while`, `for`, `case`, `done`
+- ✅ `functions(name) { ... }`
+- ✅ `break`, `continue`, `return`, `exit`
+- ✅ Arithmetic: `+`, `-`, `*`, `/`, `%`, `++`, `--`, `+=`, `-=`
+- ✅ `$()` and backtick substitutions
+- ✅ Pipes (`|`), `&&`, `||`, command chaining
+- ✅ Positional args `$1`, `$2`, etc.
+
+In short: You get about 80% of Bash power without risking actual root access.

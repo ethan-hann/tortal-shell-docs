@@ -19,11 +19,9 @@ export default defineConfig({
   lastUpdated: true,
   themeConfig: {
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Getting Started', link: '/getting-started' },
-      { text: 'Scripting', link: '/scripting' },
-      { text: 'Commands', link: '/commands' },
-      { text: 'Advanced', link: '/advanced' },
+      { text: 'Guide', link: '/guide/' },
+      { text: 'Reference', link: '/reference/' },
+      { text: 'API', link: 'https://tortal.tech/terminal/api'}
     ],
     sidebar: sidebarJson as DefaultTheme.Sidebar,
     socialLinks: [

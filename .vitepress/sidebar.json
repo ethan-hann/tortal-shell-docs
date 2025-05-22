@@ -1,80 +1,70 @@
-[
-  {
-    "text": "Advanced",
-    "collapsed": false,
-    "items": [
-      {
-        "text": "Limitations",
-        "link": "/advanced/limitations"
-      },
-      {
-        "text": "Tips and tricks",
-        "link": "/advanced/tips-and-tricks"
-      }
-    ]
-  },
-  {
-    "text": "Commands",
-    "collapsed": false,
-    "items": [
-      {
-        "text": "File commands",
-        "link": "/commands/file-commands"
-      },
-      {
-        "text": "Network commands",
-        "link": "/commands/network-commands"
-      },
-      {
-        "text": "Shell builtins",
-        "link": "/commands/shell-builtins"
-      },
-      {
-        "text": "Utility commands",
-        "link": "/commands/utility-commands"
-      },
-      {
-        "text": "Visual commands",
-        "link": "/commands/visual-commands"
-      }
-    ]
-  },
-  {
-    "text": "Getting started",
-    "link": "/getting-started"
-  },
-  {
-    "text": "Introduction",
-    "link": "/"
-  },
-  {
-    "text": "Scripting",
-    "collapsed": false,
-    "items": [
-      {
-        "text": "Command substitution",
-        "link": "/scripting/command-substitution"
-      },
-      {
-        "text": "Control flow",
-        "link": "/scripting/control-flow"
-      },
-      {
-        "text": "Examples",
-        "link": "/scripting/examples"
-      },
-      {
-        "text": "Functions",
-        "link": "/scripting/functions"
-      },
-      {
-        "text": "Pipes and chains",
-        "link": "/scripting/pipes-and-chains"
-      },
-      {
-        "text": "Variables",
-        "link": "/scripting/variables"
-      }
-    ]
-  }
-]
+{
+  "/": [
+    {
+      "text": "What is the Tortal Shell?",
+      "link": "/",
+      "items": [
+        {
+          "text": "Guide",
+          "link": "/guide/"
+        },
+        {
+          "text": "Reference",
+          "link": "/reference/"
+        }
+      ]
+    }
+  ],
+  "/guide/": [
+    {
+      "text": "Getting Started",
+      "link": "/guide/",
+      "items": [
+        {
+          "text": "Scripting",
+          "collapsed": false,
+          "items": [
+            {
+              "text": "Scripting Overview",
+              "link": "/guide/scripting/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "/reference/": [
+    {
+      "text": "Reference",
+      "link": "/reference/",
+      "items": [
+        {
+          "text": "Commands",
+          "collapsed": false,
+          "items": [
+            {
+              "text": "File Commands",
+              "link": "/reference/commands/file-commands"
+            },
+            {
+              "text": "Network Commands",
+              "link": "/reference/commands/network-commands"
+            },
+            {
+              "text": "Shell Builtins",
+              "link": "/reference/commands/shell-builtins"
+            },
+            {
+              "text": "Utility Commands",
+              "link": "/reference/commands/utility-commands"
+            },
+            {
+              "text": "Visual Commands",
+              "link": "/reference/commands/visual-commands"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
