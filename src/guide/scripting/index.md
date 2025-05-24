@@ -1,147 +1,247 @@
-# Browser Shell Scripting Guide
+# 🪄 Browser Shell Scripting Guide
 
-## Introduction
+## 🧙‍♂️ Introduction
 
-Welcome to the whimsical world of Tortal Tech shell scripting — where variables expand, loops loop (usually), and command substitution is basically wizardry. This guide will teach you how to tame the shell dragon and write scripts that are not only functional, but possibly entertaining.
+Welcome to the enchanted world of Tortal Shell scripting—where variables magically expand ✨, loops loop (usually), and command substitution is literal wizardry 🧙‍♀️. Here you'll learn how to tame the shell dragon 🐉, write scripts that are both useful and entertaining, and hopefully avoid sentient scripts (though no guarantees).
 
-The shell supports a Bash-like syntax with features such as variable assignment, loops, conditionals, case statements, arithmetic, piping, and command substitution. Scripts are run line-by-line and support user-defined functions. Be warned: your scripts may become sentient.
+The shell speaks a Bash-like dialect featuring variable spells, looping incantations, conditional enchantments, arithmetic alchemy, pipes, chaining spells, and user-defined function charms.
 
-## Writing Scripts
+## ✍️ Writing Scripts
 
-Scripts can be written in multi-line string blocks and passed to the shell. Commands support variable expansion, arithmetic evaluation, and output piping.
+Scripts are magical incantations you write in multi-line blocks. Each command supports variables, math, and pipes.
 
-### Basic Syntax
+### 📝 Basic Syntax
 
 ```sh
-# Set a variable
-name="world"
-echo "Hello, $name"
+# Create a magic variable
+name="wizard"
+echo "Greetings, $name"
 
-# Arithmetic
+# Math magic without a wand
 count=$((1 + 2 * 3))
 echo $count
 ```
 
-And yes, math works. No abacus required.
+Yes, the math checks out. No abacus required.
 
-## Control Structures
+## 🧩 Control Structures
 
-### If Statements
+### 🤔 Basic If Statements
 
 ```sh
 if [ $count -le 5 ]; then
-  echo "Count is less than or equal to 5"
+  echo "Count is tiny"
 else
-  echo "Count is greater than 5"
+  echo "Count is mighty"
 fi
 ```
 
 * Use `[ ... ]` or `test` for conditions.
-* Ends with `fi`, which is not a typo — it's just "if" spelled backwards. Because shells are cool like that.
+* Ends with `fi`—"if" spelled backward. Because whimsy.
 
-#### String Comparison
+### 🧙‍♂️ Conditional Spellcasting: if, elif, else, fi
+
+Sometimes a wizard's logic must branch—like a staff made from the World Tree itself. When one simple `if` won't do, call upon its ancient siblings: `elif` (the mystical middle path), and `else` (the fallback incantation).
 
 ```sh
-if [ "$NAME" = "OpenAI" ]; then
-  echo "Matched"
+read mood "How do you feel today, brave sorcerer?" meh
+
+if [ "$mood" = "elated" ]; then
+  echo "✨ You radiate pure mana! Cast with confidence."
+elif [ "$mood" = "focused" ]; then
+  echo "🧠 Your mind is sharp. The arcane bends to your will."
+elif [ "$mood" = "meh" ]; then
+  echo "😐 A neutral aura... perhaps a potion would help?"
+elif [ "$mood" = "cursed" ]; then
+  echo "☠️ Dark energies swirl. Proceed with caution!"
+else
+  echo "❓ Mood unknown. Divination spell required."
 fi
 ```
 
-* Prefer single `=` for equality. Save your triple-equals for JavaScript.
-* Always quote variables unless you enjoy debugging weird whitespace issues.
+**Output:**
+```
+$ run mood.sh
+$ How do you feel today, brave sorcerer?
+> focused
+$ 🧠 Your mind is sharp. The arcane bends to your will.
+```
 
-#### Number Comparison
+Use it wisely, spellwright. Not all conditions are created equal, but all deserve a proper incantation.
+
+### 🧮 Numeric Prophecies: if, elif, else, fi with Numbers
+
+Whether counting dragons, mana crystals, or cursed runes, numeric logic is a must for any terminal sorcerer. Here's how to wield it:
+
+```sh
+read level "What is your wizard level?" 0
+
+if [ $level -ge 100 ]; then
+  echo "🧙‍♂️ Archmage detected. All spells unlocked. Reality is optional."
+elif [ $level -ge 50 ]; then
+  echo "🔮 High Mage status. You may now summon lesser deities."
+elif [ $level >= 10 ]; then
+  echo "✨ Apprentice no more! Welcome to the big leagues."
+elif [ $level > 0 ]; then
+  echo "📘 Beginner scroll unlocked. Try not to explode anything."
+else
+  echo "🐣 No magic detected. Perhaps try waving the wand first?"
+fi
+```
+
+**Output:**
+```
+$ run level.sh
+$ What is your wizard level?
+> 42
+$ ✨ Apprentice no more! Welcome to the big leagues.
+```
+
+* Use `-gt` (`>`), `-lt` (`<`), `-le` (`<=`), `-ge` (`>=`), `-eq`, and `-ne` for all your numerical rituals.
+* Unlike JavaScript, this shell doesn't lie about types. These are real number comparisons, not arcane coercions.
+* Don't forget: `fi` closes the block. It's short for "*finished incantation*" (probably).
+
+::: warning
+Don't use `=`, `==`, or `===` for numerical comparisons. That will not work and cause a rift to open between you and the terminal.
+:::
+
+### 🔠 String Comparison
+
+```sh
+if [ "$NAME" = "Merlin" ]; then
+  echo "Welcome back, wizard!"
+fi
+```
+
+* `=`, `==`, `===`, `!=`, `!==` supported for equality checks. Because we're cool like that.
+* Always quote your variables. Or don’t and enjoy endless debugging fun.
+
+### 🔢 Numeric Comparison
 
 ```sh
 if [ "$COUNT" -gt 3 ]; then
-  echo "Greater than 3"
+  echo "You have more than three dragons."
 fi
 ```
 
-* Use `-gt`, `-lt`, `-le`, `-ge`, `-eq`, `-ne` for numeric comparisons.
+### 📂 File Magic Checks
 
-### While Loops
+#### 🔮 Does it Exist?
+
+Check if a mystical artifact—er, file—exists in your enchanted filesystem:
+
+```sh
+artifact="/wizards.txt"
+if test -e "$artifact"; then
+  echo "✨ Ah-ha! '$artifact' exists in this realm!"
+else
+  echo "🌀 '$artifact' seems lost to the void..."
+fi
+```
+
+#### 🧙‍♀️ File or Directory Spell?
+
+Not sure if you're looking at a simple spell scroll (file) or an entire magical kingdom (directory)? Cast these incantations:
+
+```sh
+mystery="/realm"
+if test -f "$mystery"; then
+  echo "📜 '$mystery' is a mere scroll of secrets."
+fi
+
+if test -d "$mystery"; then
+  echo "🏰 '$mystery' is a sprawling kingdom to explore!"
+fi
+```
+
+Keep your file system tidy, and beware the curses of missing files! 🔍✨
+
+### ♻️ While Loops
+
+Ah, the noble while loop—great for repeating spells until a condition fizzles.
 
 ```sh
 count=1
 while [ $count -le 3 ]; do
-  echo "Loop #$count"
+  echo "Looping spell #$count"
   count=$((count + 1))
 done
 ```
 
-* Executes block repeatedly while condition is true.
-* Maximum iteration limit (10,000) prevents your browser from melting into goo.
+* Automatically stops at 10,000 iterations, to protect your browser from magical meltdown.
 
-::: danger Beware of Infinite Loops
+::: danger ⚠️ Beware Infinite Loops
 ```sh{4}
 count=0
 while [ $count -eq 0 ]; do
-  echo "Count is $count"
-  # no increment here
+  echo "This loop shall never end!"
+  # no increment
 done
 ```
 
-* This is effectively an infinite loop.
-* Make sure to always increment/decrement the counter variable within the `while` loop depending on the condition! You’ve been warned.
+* You forgot the counter spell (aka increment). Always update your condition or risk browser implosion 😱
 :::
 
-#### While Loop with Increment
+#### ➕ While with Increment
 
 ```sh
 count=0
 while [ $count -lt 5 ]; do
-  echo "Count is $count"
+  echo "Count is currently $count"
   count++
 done
 ```
 
-* Post-increment also works. You're welcome.
+* Yes, post-increment works. The shell speaks fluent ++.
 
-#### While Loop with `break`
+#### ⛔ While with `break`
 
 ```sh
 count=0
 while [ $count -lt 5 ]; do
   if [ $count -eq 3 ]; then
-    echo "Breaking at count $count"
+    echo "Too spicy at $count, breaking the loop!"
     break
   fi
-  echo "Count is $count"
+  echo "Tolerable count: $count"
   count=$((count + 1))
 done
 ```
 
-* `break` exits the loop immediately. Like bailing out of a bad date.
+* `break` exits the loop like you just spotted a Minotaur. Swiftly and with purpose.
 
-#### While Loop with `continue`
+#### ↪️ While with `continue`
 
 ```sh
 count=0
 while [ $count -lt 5 ]; do
   count=$((count + 1))
   if [ $count -eq 3 ]; then
-    echo "Skipping count $count"
+    echo "Count $count? Nah, we skip that nonsense."
     continue
   fi
-  echo "Count is $count"
+  echo "Processing count $count"
 done
 ```
 
-* `continue` skips the rest of the current iteration. Good for avoiding number 3, which we all agree is cursed.
+* `continue` skips just this loop iteration. Great for dodging cursed numbers (looking at you, 3).
 
 
-### For Loops
+### 🔁 For Loops: March of the Variables
+
+Need to cast a spell on a list of things? `for` loops let each item take the stage like a lineup of brave adventurers.
 
 ```sh
 for n in 1 2 3; do
-  echo "Loop $n"
+  echo "Looping through $n"
 done
 ```
 
-* Iterates over a space-separated list. Each item gets a turn in the spotlight.
+* It’s like roll call for your variables. Each one gets its 15 milliseconds of fame.
 
-#### Using `seq` for dynamic loops
+####  🧮 Dynamic For Loops with `seq`
+
+Want your loop to count instead of conjuring hardcoded values?
 
 ```sh
 for i in $(seq 1 4); do
@@ -157,24 +257,24 @@ Index 3
 Index 4
 ```
 
-Feeling fancy? Add a step:
+Feeling spicy? Add a step and turn your loop into a teleportation spell:
 
 ```sh
 for x in $(seq 0 2 8); do
-  echo "Even: $x"
+  echo "Teleporting to even number: $x"
 done
 ```
 
 **Output:**
 ```
-Even: 0
-Even: 2
-Even: 4
-Even: 6
-Even: 8
+Teleporting to even number: 0
+Teleporting to even number: 2
+Teleporting to even number: 4
+Teleporting to even number: 6
+Teleporting to even number: 8
 ```
 
-#### Nested Loops
+#### 🔁 Nested Loops: Chaos and Beauty
 
 ```sh
 for outer in A B; do
@@ -184,46 +284,54 @@ for outer in A B; do
 done
 ```
 
-* Yes, nesting works. Just don’t forget your `done`s, or chaos will ensue.
+* Nesting loops is totally legal. Just remember to close every `do` with a `done`, or risk opening a recursive rift in the shell continuum.
 
----
+### 🧙‍♂️ Case Statements: Spell Selection Mode
 
-### Case Statements
+Sometimes your script needs to pick from a magical menu of options. That’s where case comes in — like a choose-your-own-adventure scroll 🧾.
 
 ```sh
-input="yes"
-case $input in
-  yes) echo "Affirmative" ;;
-  no) echo "Negative" ;;
-  *) echo "Unknown response, entering panic mode..." ;;
+spell="fireball"
+case $spell in
+  fireball) echo "🔥 You cast Fireball. It's super effective!" ;;
+  iceblast) echo "❄️ Iceblast conjured! Enemies are chilled." ;;
+  teleport) echo "✨ *Poof* You're somewhere else." ;;
+  *) echo "⚠️ Unknown spell! Wild magic surges..." ;;
 esac
 ```
 
-* Pattern matching, the fun way.
-* `;;` ends each match case.
-* `*` is the default case. Think of it like the wildcard that always wins.
+* Each option is followed by ) and ends with ;; — like a polite bow after each performance.
+* The *\** (*asterisk*) is your catch-all safety net. It ensures your script doesn’t panic if someone types `spell=banana`.
 
-## Functions
+Need input from a suspicious user?
 
-Functions — the Swiss army knife of shell scripting. They're where logic goes to modularize, variables go to scope out the place, and recursion goes to party until the stack collapses (which, here, hopefull it won’t — we have safeguards!).
+```sh
+read spell "Choose your spell:" sparkle
+case $spell in
+  sparkle) echo "🌟 You shimmer with fabulous energy!" ;;
+  smite) echo "⚡ Divine justice rains down." ;;
+  vanish) echo "🚪 You've left the building." ;;
+  *) echo "❓ That spell is... not in this realm." ;;
+esac
+```
 
-### Defining a Function
+::: tip ✨ Pro tip
+`case` statements are great for branching logic with style — like `if`/`else` but way more dramatic.
+:::
+
+## 🛠️ Functions: Your Reusable Wizardry
+
+Functions are the enchanted scrolls of shell scripting — reusable blocks of logic that you can summon by name, pass offerings (a.k.a. arguments), and even loop into recursion rituals ✨. They help you clean up your spells, organize your incantations, and avoid repeating yourself like a cursed parrot.
+
+### ✨ Defining a Function
 
 ```sh
 greet(name) {
-  echo "Hello, $name!"
+  echo "✨ Hello, $name!"
 }
 ```
 
-Or with unnamed positional arguments:
-
-```sh
-add(a, b) {
-  echo $((a + b))
-}
-```
-
-Prefer `$1`, `$2`? That works too:
+Want to go old school? Use positional spell slots:
 
 ```sh
 multiply() {
@@ -231,33 +339,52 @@ multiply() {
 }
 ```
 
-### Calling a Function
+Or stick with mystical named parameters:
 
 ```sh
-greet Alice
-result=$(add 10 20)
-echo "Sum is $result"
+add(x, y) {
+  echo $((x + y))
+}
 ```
 
-If you want to call a function inside a substitution inside an arithmetic operation inside a loop… you’re in the right shell.
+> You can mix and match styles. It won't summon demons. Probably.
 
-### Returning from a Function
+### 🗣️ Calling a Function
 
 ```sh
-check_number(n) {
-  if [ $n -lt 0 ]; then
-    echo "Too small"
-    return
+greet Merlin
+sum=$(add 7 5)
+echo "Total magic power: $sum"
+```
+
+Yes, you can nest function calls inside substitutions inside arithmetic inside an existential crisis.
+
+### ⏹️ Returning Early
+
+```sh
+check_level(level) {
+  if [ $level -lt 10 ]; then
+    echo "⚠️ Too weak!"
+    return 1
   fi
-  echo "Approved"
+  echo "✨ Access granted."
 }
 
-check_number 42
+check_level $1
 ```
 
-Use `return` to exit early. Use `exit` to nuke the entire script.
+**Output:**
+```
+$ run check.sh 4
+⚠️ Too weak!
+```
 
-### Example: Recursive Factorial
+* Use `return` to exit a function without drama.
+  - `return 0` (or no `return`) indicates successful function execution.
+  - `return` with anything else indicates failure.
+* Use `exit` if you want to rage-quit the entire script.
+
+### ♻️ Example: Recursive Factorial
 
 ```sh
 factorial(n) {
@@ -269,27 +396,27 @@ factorial(n) {
   echo $((n * prev))
 }
 
-result=$(factorial 5)
-echo "5! = $result"
+echo "$1! = $(factorial $1)"
 ```
 
 **Output:**
 ```
+$ run factorial.sh 5
 5! = 120
 ```
 
-This example is great for showing off recursion and making your friends think you're doing something way harder than you are.
+Perfect for impressing mortals or scaring JavaScript devs.
 
-### Example: File Type Detective
+### 🕵️‍♂️ Example: File Type Detective
 
 ```sh
-describe_file(file) {
-  if test -d $file; then
-    echo "$file is a directory"
-  elif test -f $file; then
-    echo "$file is a file"
+describe_file(target) {
+  if test -d $target; then
+    echo "📂 $target is a directory"
+  elif test -f $target; then
+    echo "📄 $target is a file"
   else
-    echo "$file does not exist"
+    echo "❓ $target does not exist"
   fi
 }
 
@@ -297,16 +424,22 @@ describe_file /tmp
 describe_file ./banana.png
 ```
 
-Shell scripts: better than any snitch.
+Detective work, minus the trench coat.
 
-### Example: Fibonacci Generator
+### 🌿 Example: Fibonacci Spell
 
 ```sh
+doNewLine=$2
+
 fibonacci(n) {
   a=0
   b=1
   for i in $(seq 1 $n); do
-    echo -n "$a "
+    if [ $doNewLine = "true" ]; then
+      echo "$a "
+    else
+      echo -n "$a "
+    fi
     next=$((a + b))
     a=$b
     b=$next
@@ -314,21 +447,35 @@ fibonacci(n) {
   echo
 }
 
-fibonacci 7
+fibonacci $1
 ```
 
 **Output:**
-```
+```sh
+$ run fib.sh 7 false
 0 1 1 2 3 5 8
 ```
 
-Functions are powerful. And like all powerful things, they come with great responsibility. Or at least some parentheses.
+```sh
+$ run fib.sh 7 true
+0
+1
+1
+2
+3
+5
+8
+```
 
-## Command Substitution
+If you're summoning Fibonacci, you're either solving a riddle or flexing in front of your terminal.
 
-Command substitution is like teleportation for strings — the output of one command magically appears inside another. It's the "yo dawg, I heard you like commands" of the shell.
+Use functions early, use them often, and remember: any sufficiently advanced function is indistinguishable from magic. 🧙‍♀️
 
-### Basic Syntax
+## ✨ Command Substitution: Summoning Output Into the Present
+
+Command substitution is a spell of transmutation 🪄—it plucks the output of one incantation and teleports it directly into another. Like stuffing a miniature spellbook inside a fireball. Very efficient. Slightly unstable.
+
+### 🧪 Basic Alchemy
 
 ```sh
 echo "Now: `date`"
@@ -336,24 +483,21 @@ CURRENT=`pwd`
 echo "Current directory: $CURRENT"
 ```
 
-Or, use the modern and less backtick-prone form:
+Or, cast with modern wizard syntax (fewer backticks, less arcane suffering):
 
 ```sh
 FILES=$(ls | count)
-echo "Number of files: $FILES"
+echo "Number of magical artifacts: $FILES"
 ```
 
-Why `count` instead of `wc -l` or `wc -w`? Because `ls` output is formatted in ways that make `wc` give misleading results. `count` is smarter about whitespace, and behaves better with `ls`, `ls -l`, or piped input.
+### 🪞 Use Cases for Command Teleportation
 
-If you're counting files — this is the way. Period.
+* 🔍 Capture output and bottle it in a variable
+* 🧩 Pass spells as arguments to other spells
+* 🔁 Conjure dynamic ranges in for loops
+* 🧠 Create nested incantations like a wizard inception
 
-### Use Cases
-
-- Storing command output in a variable
-- Nesting command outputs inside arguments
-- Creating dynamic loop ranges, filenames, messages, insults, etc.
-
-### Example: Today’s Mood
+### Example: Daily Augury
 
 ```sh
 echo "Today is: $(date +%A)"
@@ -364,188 +508,243 @@ echo "Today is: $(date +%A)"
 Today is: Friday
 ```
 
-### Example: Who dis?
+### Example: Know Thyself
 
 ```sh
 user=$(whoami)
-echo "Welcome, $user. The shell is yours."
+echo "Welcome, $user. The terminal recognizes you."
 ```
 
-### Example: Combined with arithmetic
+### Example: With Arcane Math
 
 ```sh
-files=$(ls | count)
-echo "Double that? $((files * 2))"
+runes=$(ls | count)
+echo "Runes found: $runes. Potential power level: $((runes * 42))"
 ```
 
-You can also nest them like a Russian doll made of parentheses:
+### Example: Russian Doll Summoning
 
 ```sh
-count=$(echo $(echo $(echo 5)))
-echo "Count: $count"
+count=$((5 * $(echo $((5 * $(echo $((5 * $(echo 1)))))))))
+echo "Layers of sorcery: $count"
 ```
 
-Careful though — too much nesting and you may summon a sub-shell demon.
+**Output:**
+```
+$ Layers of sorcery: 125
+```
 
-Output from command substitution is automatically flattened to a single line — newlines are replaced with spaces.
+::: details 🧙‍♂️ Explanation of the Spellbook
+The innermost `echo 1` returns `1`
 
-## Chaining and Piping
+Then `5 * 1 → 5`
 
-Chaining and piping are the secret sauce of shell scripting. Want to feed output from one command into another? Pipe it. Want to run something only if the previous command didn’t explode? Chain it.
+Then `5 * 5 → 25`
 
-### The Mighty Pipe (`|`)
+Then `5 * 25 → 125`
+:::
+
+> 📚 This is how wizards do math—by nesting spells until numbers fall out.
+
+Careful—nesting substitutions too deeply may open a tiny portal to the Subshell Realm. Proceed with wisdom (and a Ctrl+C).
+
+>🪄 All summoned output is collapsed into a single line. Newlines are quietly swept under the rug and replaced with spaces. It's tidier that way.
+
+## 🪄 Chaining & Piping: Spells in Sequence
+
+Behold the secret incantations that bind your shell commands together—like linking runes on a scroll. Pipes `|` pass outputs from one spell to the next, while chaining operators `&&` and `||` decide what happens when magic fizzles or succeeds.
+
+### 🧪 The Alchemist’s Pipe (`|`)
 
 ```sh
 ls | grep "txt"
 ```
 
-This sends the output of `ls` into `grep`, which filters for files containing “txt”. You just built a search engine. Sort of.
+🔮 This channels the results of `ls` into `grep`, filtering only the scrolls that mention *txt*. Think of it as divination through text-based crystal balls.
 
 ```sh
-echo "one two three" | count
+echo "dragon egg wand cloak" | count
 ```
 
-Yes, you can pipe anything into `count` and it’ll tell you how many “things” it sees. Great for counting how often your boss emails you “just checking in.”
+⚗️ Pipe your spell components into `count` to tally how many items you’ve conjured. Handy for inventories, to-do lists, or suspiciously long snack orders.
 
-### Chain Commands with `&&` and `||`
+### ⚖️ Conditional Magic with `&&` and `||`
+
+#### 🎯 `&&` — Only If the First Spell Lands
+```sh
+mkdir tower && cd tower
+```
+
+🏰 Create the tower, then teleport inside—but only if the tower construction spell succeeds.
+
+#### 💥 `||` — If the First Spell Explodes
 
 ```sh
-mkdir demo && cd demo
+run unknownspell || echo "Spell fizzled!"
 ```
 
-`cd demo` only runs if `mkdir demo` succeeds. A classic duo.
+😱 When a spell fails, a backup chant kicks in. Think of it as magical insurance.
+
+### 🧮 Combo Rituals: Piping + Logic
 
 ```sh
-invalidcmd || echo "Something failed!"
+echo "chosen one" >> prophecy.txt && cat prophecy.txt | grep -s "chosen one" && echo "✨ The prophecy is true!" || echo "❌ False alarm."
 ```
 
-Only runs the `echo` if `invalidcmd` goes down in flames. Use this to sound calm and collected while panicking.
+* `echo` conjures up a new file from the ether with 'chosen one' in it
+* `cat` conjures the ancient prophecy
+* `grep -s` seeks the foretold hero (while suppressing output)
+* If found, trumpet your discovery 🎺
+* If not, mutter and move on
 
-### Combining All Three
+✨ It's like an enchanted decision tree—with more scrolls and fewer elves.
+
+> Let your logic flow like mana—through pipes and runes—binding your commands together into glorious, enchanted automation. 🧙‍♀️
+
+## 🧙‍♀️ Wizardly Tips & Tricks
+
+Here lie a handful of enchanted scrolls to sharpen your scripting sorcery. Whether you're conjuring loops or binding spells together, these tricks will make your commandcraft smoother than a phoenix feather quill.
+
+### 🔁 Summon Output with Command Substitution
 
 ```sh
-cat hello.txt | grep "world" && echo "Found it" || echo "Nope"
+echo "The stars say: `date`"
+FILES=$(ls | count)
+echo "📂 Files discovered: $FILES"
 ```
 
-- `cat` pipes into `grep`
-- If `grep` finds it, you get "Found it"
-- If not, the fallback is "Nope"
+🌟 Use backticks or `$(...)` to invoke command results mid-incantation. It's like spellcasting with echo-location.
 
-It’s like a choose-your-own-adventure story, but with more brackets.
+> [🧮 Why `count` and not `wc`?](#count-things-reliably) — Because `wc` fibs and `count` is a truth-teller.
 
-## Tips and Tricks
-
-Here are some helpful tips to get the most out of your browser shell.
-
-### Reuse Output with Command Substitution
-
-```sh
-echo "Today is: `date`"
-COUNT=$(ls | count)
-echo "There are $COUNT files"
-```
-
-> [Why `count` and not `wc`?](#count-things-reliably)
-
-#### Arithmetic Evaluation
+#### 🧠 Enchant Arithmetic on the Fly
 
 You can also evaluate mathmatical expressions and save them to a variable. In this case, note the syntax is `$((expression))`:
 
 ```sh
-COUNT=$((5 + 2 * 3))
-echo $COUNT
+STRENGTH=$((5 + 2 * 3))
+echo "🧠 Spell power: $STRENGTH"
 ```
 
-**Output:** `11`
-
-> *Yes, we follow the order of operations, [PEMDAS](https://www.mathsisfun.com/operation-order-pemdas.html) lovers*
-
-### Chaining and Conditional Execution
-
-```sh
-mkdir logs && echo "Created logs dir"
-cat file.txt || echo "File not found"
-mkdir temp && cd temp || echo "Could not enter dir"
+**Output:**
+```
+$ 🧠 Spell power: 11
 ```
 
-### Use `read` for Interactive Scripts
+> No wand necessary. Yes, we honor the sacred laws of [PEMDAS](https://www.mathsisfun.com/operation-order-pemdas.html). Order matters—even in magic.
+
+### 🔗 Chain Spells for Conditional Casting
 
 ```sh
-read username "What's your name?" Guest
-echo "Welcome, $username"
+mkdir logs && echo "📝 Logs chamber summoned"
+cat scroll.txt || echo "❌ That scroll vanished"
+mkdir cave && cd cave || echo "🚫 No entry to the cave!"
 ```
 
-### Use Functions for Reusability
+Use `&&` to proceed if the magic succeeds, or `||` to gracefully recover when your potion explodes.
+
+### 🧙‍♂️ Prompt the Apprentice with `read`
 
 ```sh
-say(msg) {
-  echo "📢 $msg"
+read wizard_name "What name do you answer to?" Merlin
+echo "✨ Welcome, $wizard_name"
+```
+
+Perfect for interactive scripts, fortune tellers, and dramatic entrances.
+
+### 🔄 Write Once, Cast Forever with Functions
+
+```sh
+announce(msg) {
+  echo "📣 Hear ye: $msg"
 }
 
-say "This is reusable"
+announce "The dragons have returned!"
 ```
 
-### Save and Use Variables Persistently
+Reusable magic circles. Name them, call them, wield them.
+
+### 🔐 Preserve Your Secrets with export
 
 ```sh
-export FAVORITE=banana
+export FAVORITE_SPELL=polymorph
 ```
 
-Now `$FAVORITE` will be available in future scripts and sessions.
+Stored safely in your arcane environment, `FAVORITE_SPELL` now follows you from scroll to scroll.
 
-### Count Things Reliably
+### 🧮 Count Like a Conjurer{#count-things-reliably}
 
 ```sh
 ls | count
 ```
 
-Use `count` instead of `wc` when counting files or piped items, because `count` is specifically designed to handle browser shell quirks like inconsistent whitespace or multi-column output — especially from commands like `ls`. Because `wc` lies, and `count` tells the truth.
+Use `count` instead of `wc` to see what’s really there. Especially after commands like `ls` that like to decorate their output. `count` sees through the illusion 🪞 and is specifically designed to handle browser shell quirks like inconsistent whitespace or multi-column output. If you're counting files — this is the way. Period.
 
-## Limitations
+📜 With these tricks in hand, your shell scripting should feel a little more like spell weaving - and a lot less like debugging a cursed script. Happy conjuring! ✨
 
-While the shell is feature-rich, there are still some limits (besides your imagination).
+## 🪨 Known Spellbound Limitations
 
-### ❌ No True Concurrency
+Even the most powerful tomes have their bounds. While the Tortal Shell is a spell-slinger’s delight, there are a few enchantments it just can’t conjure—yet.
 
-All scripts run in a single-threaded context. There’s no `&` backgrounding or async tasks. Everything happens in order, like polite British queuing, so write your scripts responsibly.
+### 💤 No True Concurrency
 
-### ❌ No Native Binaries
+Scripts follow the path of a well-behaved wizard apprentice: one task at a time.
 
-Come on, this is a browser. You can’t run native system binaries or spawn actual processes.
+* No backgrounding (`&`)
+* No `async` sorcery
+* No parallel spell threads
+
+🕰 All magic happens in order, like a good queue at the potions shop. Pace your scrolls accordingly.
+
+### 🧱 No Native Binaries (Muggles Only)
+
+This is a browser, not a dungeon terminal. You cannot summon native binaries or system familiars.
 
 ```sh
-# Nope
+# ❌ These shall not pass
 make
-python3 script.py
+python3 summon.py
 ```
 
-All commands must be built-ins — lovingly handcrafted in TypeScript.
+All spells (commands) must be part of the shell’s sacred scrolls — handcrafted in TypeScript, with care and possibly coffee.
 
-### 🗂 Virtual Files Only
+### 📦 Files are Virtual, Not Arcane Artifacts
 
-There’s a full virtual file system, but it’s sandboxed. You can’t access local files unless they’ve been uploaded or created in-shell. Think of it like an invisible flash drive in your browser.
+You have a whole file system—hidden in browser space. But it's sandboxed tighter than a dragon egg vault.
 
-### 🔐 No Direct Network Access (outside of built-in commands)
+* You can’t touch your actual hard drive 🧱
+* Uploaded files are temporarily borrowed via browser sorcery
+* Everything lives in a magical storage dimension (a.k.a. localStorage or IndexedDB)
 
-You can use `ping`, `nslookup`, or `curl`, but the magic stops there. No raw `fetch()` or network sockets. The browser has opinions, and security is one of them.
+### 🌐 Network Access: Controlled Portals Only
 
-### 🛠 Limited Bash Syntax
+You get `ping`, `curl`, and `nslookup` — the officially sanctioned teleportation gates.
 
-We’re not Bash — we just cosplay as it.
+* ❌ No raw `fetch()`
+* ❌ No `XMLHttpRequest`
+* ❌ No socket spells or AJAX alchemy
 
-Unsupported:
-- No `[[ ... ]]` conditionals
-- No heredocs (`<<EOF`)
-- No `select`, `until`
+📡 The browser’s magical firewall says: "*That’s enough internet for you.*"
 
-But! We do support:
-- ✅ `if`, `else`, `elif`, `fi`
-- ✅ `while`, `for`, `case`, `done`
-- ✅ `functions(name) { ... }`
-- ✅ `break`, `continue`, `return`, `exit`
-- ✅ Arithmetic: `+`, `-`, `*`, `/`, `%`, `++`, `--`, `+=`, `-=`
-- ✅ `$()` and backtick substitutions
-- ✅ Pipes (`|`), `&&`, `||`, command chaining
-- ✅ Positional args `$1`, `$2`, etc.
+### 🧙‍♂️ Bash-Like, Not Bash-Certified
 
-In short: You get about 80% of Bash power without risking actual root access.
+The shell speaks fluent Bash-ish, but isn’t a full-blown Bash mage.
+
+Unsupported incantations:
+* ❌ No `[[ ... ]]` double-bracket tests
+* ❌ No heredocs (`<<EOF`)
+* ❌ No `select`, `until`
+
+But fear not, for these spells are supported:
+* ✅ `if`, `else`, `elif`, `fi`
+* ✅ `for`, `while`, `case`, `done`
+* ✅ Function charms: `greet(name) { ... }`
+* ✅ `break`, `continue`, `return`, `exit`
+* ✅ All the arithmetic you need: `+ - * / % ++ -- += -=`
+* ✅ Command substitution: `whoami` or `$(date)`
+* ✅ Pipes (`|`), logic chains (`&&`,`||`)
+* ✅ Positional potions: `$1`, `$2`, etc.
+
+In short: You get about 80% of a full Bash wizard’s staff, without the risk of summoning system demons.
+
+🧞‍♂️ Use wisely, and enchant often.
