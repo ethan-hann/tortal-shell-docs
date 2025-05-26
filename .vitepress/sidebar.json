@@ -27,6 +27,46 @@
             {
               "text": "Scripting Overview",
               "link": "/guide/scripting/"
+            },
+            {
+              "text": "Fundamentals",
+              "link": "/guide/scripting/language-fundamentals"
+            },
+            {
+              "text": "Control Structures",
+              "link": "/guide/scripting/control-structures"
+            },
+            {
+              "text": "Command Substitution",
+              "link": "/guide/scripting/command-subs"
+            },
+            {
+              "text": "Loops",
+              "link": "/guide/scripting/loops"
+            },
+            {
+              "text": "Arrays",
+              "link": "/guide/scripting/arrays"
+            },
+            {
+              "text": "Functions",
+              "link": "/guide/scripting/functions"
+            },
+            {
+              "text": "Chaining and Piping",
+              "link": "/guide/scripting/chaining-piping"
+            },
+            {
+              "text": "Classes",
+              "link": "/guide/scripting/classes"
+            },
+            {
+              "text": "Limitations",
+              "link": "/guide/scripting/limitations"
+            },
+            {
+              "text": "Tips and Tricks",
+              "link": "/guide/scripting/tips-and-tricks"
             }
           ]
         }
